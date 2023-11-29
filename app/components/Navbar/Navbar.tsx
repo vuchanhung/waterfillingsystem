@@ -10,7 +10,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-black">
+    <nav className="bg-indigo-800">
       <div
         className="
             max-w-7xl
@@ -52,7 +52,10 @@ const Navbar = () => {
                         delay-150
                         hover:-translate-y-1 
                         hover:scale-110  
-                        duration-300"
+                        duration-300
+                        underline
+                        decoration-2 
+                        underline-offset-8"
               >
                 Filling System
               </a>

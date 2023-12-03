@@ -1,27 +1,18 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import {  ref, set ,push} from "firebase/database";
-import { collection,addDoc } from "firebase/firestore";
-import { db } from "@/app/api/firebaseConnect";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+
 const FillingSystemForm = () => {
   
-  const [values,setValues] = useState({amount:'',volumn:''})
-  const [loading, setLoading] = useState(false);
+  const [values,setValues] = useState({totalAmount:'',volumn:''})
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit =async (e:any) => {
     e.preventDefault()
-
-    if(values.amount!=='' && values.volumn!==''){
-      await addDoc(collection(db,'fillInfo'),{
-        volumn:values.volumn,
-        amount:values.amount
-      })
-    }
-    setValues({amount:'',volumn:''})
-
-
-  };
-
+    
+  }  
 
   return (
     <div
@@ -40,7 +31,9 @@ const FillingSystemForm = () => {
       sm:rounded-lg
       sm:px-10"
       >
-        <form className="max-w-sm mx-auto">
+        <form 
+          className="max-w-sm mx-auto" 
+          onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-5">
             <label
               htmlFor="small-input"
@@ -51,7 +44,7 @@ const FillingSystemForm = () => {
                 font-medium  
               text-white"
             >
-              Dung tích
+              Dung tích (ml)
             </label>
             <input
               type="number"
@@ -95,8 +88,8 @@ const FillingSystemForm = () => {
               type="number"
               id="small-input"
               placeholder="Nhập số lượng chai"
-              value={values.amount}
-              onChange={(e)=>setValues({...values,amount:e.target.value})}
+              value={values.totalAmount}
+              onChange={(e)=>setValues({...values,totalAmount:e.target.value})}
               className="
               bg-gray-50 
                 border 
@@ -125,7 +118,6 @@ const FillingSystemForm = () => {
             lg:px-10">
             <button 
               type="submit" 
-              onClick={handleSubmit}
               className="
               text-white 
               bg-blue-700 

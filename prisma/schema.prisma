@@ -15,4 +15,5 @@ model fillingInfo{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   volumn Int?
   totalAmount Int?
+  createdAt DateTime @default(now())
 }
